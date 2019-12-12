@@ -34,6 +34,8 @@ After the program:
 After this, copy the lines and put in your code, easy peasy :D
 Remember, the text file should be passed by argument
 
+The default input file in the project is in "D:\test_file.txt"
+
 ## Future plans
 
 This code is good, but not complete. There's still thing to do:
