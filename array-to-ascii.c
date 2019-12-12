@@ -5,12 +5,14 @@
 
 int main(int argc, char** argv)
 {
+	// if no files where passed by argument
 	if (argc < 2)
 	{
 		puts("\tusage <path>");
 		return 1;
 	}
 
+	// opening file
 	FILE* textToConvert;
 	textToConvert = fopen(argv[1], "r+");
 	if (textToConvert == NULL)
@@ -19,8 +21,11 @@ int main(int argc, char** argv)
 		return 2;
 	}
 
+	// used to store the textFile
+	// To Do: use malloc()
 	char textFile[100][155];
 
+	// stores the text file in the array
 	int lineCount;
 	for (lineCount = 0; lineCount < 100; lineCount++)
 	{
@@ -34,12 +39,15 @@ int main(int argc, char** argv)
 			puts("File bigger than supported, last succeful line: 100");
 	}
 
+	// close the file and opens again at the end
 	fclose(textToConvert);
 	textToConvert = fopen(argv[1], "a");
 
+	// print 10 new line
 	for (int count = 0; count < 10; count++)
 		fprintf(textToConvert, "\n");
-
+	
+	// the program itself
 	for (int i = 0; i < lineCount + 1; i++)
 	{
 		if (textFile[i][0] == '\0' || textFile[i][0] == '\n')
