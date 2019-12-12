@@ -41,4 +41,4 @@ This code is good, but not complete. There's still thing to do:
   - Better coma usage: there's always comma after ```}```. In the last ```}``` it shouldn't be there, also the space after the comma inside the brackets
   - Complete array support: It just puts the brackets in the line, it needs to put one extra open bracket in the start line and a close bracket at the end of the groups.
   PS: line groups are separeted by a empty line
-  - Support array attribution: so you'll have just to change the variable name
+  - Support array assignment: so you'll have just to change the variable name
