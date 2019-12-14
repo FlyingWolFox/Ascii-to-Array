@@ -74,7 +74,11 @@ int main(int argc, char** argv)
 			if (textFile[i][j] == '\0' || textFile[i][j] == '\n')
 				break;
 
-			fprintf(textToConvert, "'%c'", textFile[i][j]);
+			if (textFile[i][j] == '\\' || textFile[i][j] == '\"')
+				fprintf(textToConvert, "'\\%c'", textFile[i][j]);
+
+			else
+				fprintf(textToConvert, "'%c'", textFile[i][j]);
 
 			if (textFile[i][j + 1] != '\0' && textFile[i][j + 1] != '\n')
 				fprintf(textToConvert, ", ");
