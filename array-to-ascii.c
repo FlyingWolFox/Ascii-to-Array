@@ -57,48 +57,64 @@ int main(int argc, char** argv)
 			continue;
 		}
 
+		// looks if there's a empty line before a non-empty line to put a open bracket
 		if (i > 0)
 		{
 			if (textFile[i - 1][0] == '\n' && (textFile[i][0] != '\n' && textFile[i][0] != '\0'))
 				fprintf(textToConvert, "{ ");
 		}
 
+		// if the file doesn't start with an empy line, put the open bracket
 		if (i == 0 && textFile[i][0] != '\0' && textFile[i][0] != '\n')
 			fprintf(textToConvert, "{ ");
 
-
+		// print the line bracket
 		fprintf(textToConvert, "{");
 
+		// the algorithm. It'll get a string and trasnform in a "initializable string"
+		// putting the ' before and after the character, spliting the caracter with commas
+		// something like "Example" to "'E', 'x', 'a', 'm', 'p', 'l', 'e'"
 		for (int j = 0; j < 155; j++)
 		{
+			// if the line is empty, go to the next
 			if (textFile[i][j] == '\0' || textFile[i][j] == '\n')
 				break;
 
+			// if th echaracter is a backslash or a quote, put a backslash before it
 			if (textFile[i][j] == '\\' || textFile[i][j] == '\"')
 				fprintf(textToConvert, "'\\%c'", textFile[i][j]);
 
+			// prints the character betwen '
 			else
 				fprintf(textToConvert, "'%c'", textFile[i][j]);
 
+			// if the next line isn't empty, print the comma
 			if (textFile[i][j + 1] != '\0' && textFile[i][j + 1] != '\n')
 				fprintf(textToConvert, ", ");
 		}
 
+		// looks if the lineCount won't be surpassed, so 
+		// the next instructions can be done safely
 		if (i + 1 < lineCount + 1)
 		{
+			// if the next line is empty, prints the close bracket of the line bracket 
+			// and the close bracket from the array initializer
 			if (textFile[i + 1][0] == '\0' || textFile[i + 1][0] == '\n')
 				fprintf(textToConvert, "} }\n");
 
+			// else, print the close bracket of the line and a comma
 			else
 				fprintf(textToConvert, "},\n");
 		}
 		
+		// else, we're in the end of the file, just
+		// print the end brackets
 		else
-			fprintf(textToConvert, "},\n");
+			fprintf(textToConvert, "} }\n");
 	}
 
 	puts("Done!");
-	getchar();
+	fgets(textFile[99], 5, stdin); // freezes the execution so the console window doens't close
 
 	return 0;
 }
