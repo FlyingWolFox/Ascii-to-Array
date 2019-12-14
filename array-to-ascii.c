@@ -50,11 +50,22 @@ int main(int argc, char** argv)
 	// the program itself
 	for (int i = 0; i < lineCount + 1; i++)
 	{
+		// if there's no character in the line, print a enter and goes to the next line
 		if (textFile[i][0] == '\0' || textFile[i][0] == '\n')
 		{
 			fprintf(textToConvert, "\n");
 			continue;
 		}
+
+		if (i > 0)
+		{
+			if (textFile[i - 1][0] == '\n' && (textFile[i][0] != '\n' && textFile[i][0] != '\0'))
+				fprintf(textToConvert, "{ ");
+		}
+
+		if (i == 0 && textFile[i][0] != '\0' && textFile[i][0] != '\n')
+			fprintf(textToConvert, "{ ");
+
 
 		fprintf(textToConvert, "{");
 
@@ -63,13 +74,23 @@ int main(int argc, char** argv)
 			if (textFile[i][j] == '\0' || textFile[i][j] == '\n')
 				break;
 
-			fprintf(textToConvert, "%c", textFile[i][j]);
+			fprintf(textToConvert, "'%c'", textFile[i][j]);
 
 			if (textFile[i][j + 1] != '\0' && textFile[i][j + 1] != '\n')
-				fprintf(textToConvert, ",");
+				fprintf(textToConvert, ", ");
 		}
 
-		fprintf(textToConvert, "},\n");
+		if (i + 1 < lineCount + 1)
+		{
+			if (textFile[i + 1][0] == '\0' || textFile[i + 1][0] == '\n')
+				fprintf(textToConvert, "} }\n");
+
+			else
+				fprintf(textToConvert, "},\n");
+		}
+		
+		else
+			fprintf(textToConvert, "},\n");
 	}
 
 	puts("Done!");
