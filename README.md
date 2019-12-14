@@ -4,7 +4,7 @@ Made to make life eaier when converting ascii art to use in arrays in C
 
 ## What it does
 
-This will get a text file by command line, read it and write at the end of the file the copy-ready version of the text to string initialization
+This will get a text file by command line, read it and write at the end of the file the copy-ready version of the text to string initialization or assignement
 
 ## If you didn't understand the setence above
 
@@ -12,7 +12,7 @@ No worries, I'll give an example (because my english is bad):
 
 textFile.txt:
 ```
-  1| Example text
+  1| Ex
   2|
   3| X X
   4|  o
@@ -20,19 +20,38 @@ textFile.txt:
 
 After the program:
 ```
-  1|Example text
+  1|Ex
   2|
   3|X X
   4| o
  ...
- 15|{'E','x','a','m','p','l','e',' ','t','e','x','t'},
+ 15|{'E','x'},
  16|
  17|{'X',' ','X'},
  18|{' ','o'},
 ```
+or: 
+```
+  1|Ex
+  2|
+  3|X X
+  4| o
+ ...
+ 15|array_0[0][0] = 'E';
+ 16|array_0[0][1] = 'x';
+ 17|
+ 18|array_1[0][0] = 'X';
+ 19|array_1[0][1] = ' ';
+ 20|array_1[0][2] = 'X';
+ 21|array_1[1][0] = ' ';
+ 22|array_1[1][0] = 'o';
+```
 
 After this, copy the lines and put in your code, easy peasy :D
-Remember, the text file should be passed by argument
+
+This "or" is there because the program has two mode: the first to initialize an array and the second to assign each element of an array
+
+The text file should be passed by argument. The mode can be passed by argument (being 0 or 1) but it isn't necessary, if you don't put, the program will prompt which mode you want
 
 The default input file in the project is in "D:\test_file.txt"
 
@@ -40,7 +59,3 @@ The default input file in the project is in "D:\test_file.txt"
 
 This code is good, but not complete. There's still thing to do:
   - Support wchar: non-ascii characters aren't supported
-  - Better coma usage: there's always comma after ```}```. In the last ```}``` it shouldn't be there, also the space after the comma inside the brackets
-  - Complete array support: It just puts the brackets in the line, it needs to put one extra open bracket in the start line and a close bracket at the end of the groups.
-  PS: line groups are separeted by a empty line
-  - Support array assignment: so you'll have just to change the variable name
