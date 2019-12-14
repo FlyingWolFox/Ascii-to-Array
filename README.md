@@ -59,3 +59,4 @@ The default input file in the project is in "D:\test_file.txt"
 
 This code is good, but not complete. There's still thing to do:
   - Support wchar: non-ascii characters aren't supported
+  - Use malloc to not have the file line limit
