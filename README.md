@@ -55,8 +55,6 @@ The text file should be passed by argument. The mode can be passed by argument (
 
 The default input file in the project is in "D:\test_file.txt"
 
-## Future plans
+## Limitations
+This uses UTF-8 encoding by default and extended ascii table isn't completely supported, also the BOM is ignored and will be printed with the other characters. UTF-8 is compatible with the normal ascii table so no worries with it. As the utf-8 support is "unnoficial", changind to other enconding will have to change the printing routine to match the range of the encondig and a flag for endianess. The part where you have to cgange will be commented
 
-This code is good, but not complete. There's still thing to do:
-  - Support wchar: non-ascii characters aren't supported
-  - Use malloc to not have the file line limit
