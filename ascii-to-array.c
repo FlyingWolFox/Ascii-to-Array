@@ -110,6 +110,17 @@ int main(int argc, char** argv)
 				if (textToConvert[count] == '\\' || textToConvert[count] == '\"')
 					fprintf(textFile, "'\\%c'", textToConvert[count]);
 
+				// here the utf-8 convertion happens
+				// the code will look for the utf-8 patterns in the byte being printed
+				// then it'll verify if the byte after is like 10xx xxxx (UTF-8)
+				// if yes, it'll see how many bytes is the character:
+				// 2 bytes: 110x xxxx (C0 to DF)
+				// 3 bytes: 1110 xxxx (E0 to EF)
+				// 4 bytes: 1111 0xxx (F0 to F7)
+				// if no match is found in the byte it'll be printed as unsigned char
+				// if the character is an extended ascii character that is smaller
+				// than 0xC0 it'll be printed as signed character
+				// if you wnat to change the encoding, you should work here
 				else if (textToConvert[count] >= (char)0xC0 && textToConvert[count] <= (char)0xFF)
 				{
 					int byteCount = 1;
@@ -138,8 +149,11 @@ int main(int argc, char** argv)
 						unsigned char extendedASCII = textToConvert[count];
 						fprintf(textFile, "%uc", extendedASCII);
 					}
+										
+					else
+						count++;
+
 					fprintf(textFile, "'");
-					count++;
 				}
 
 				// prints the character betwen '
@@ -210,6 +224,17 @@ int main(int argc, char** argv)
 				if (textToConvert[count] == '\\' || textToConvert[count] == '\"')
 					fprintf(textFile, "'\\%c'", textToConvert[count]);
 
+				// here the utf-8 convertion happens
+				// the code will look for the utf-8 patterns in the byte being printed
+				// then it'll verify if the byte after is like 10xx xxxx (UTF-8)
+				// if yes, it'll see how many bytes is the character:
+				// 2 bytes: 110x xxxx (C0 to DF)
+				// 3 bytes: 1110 xxxx (E0 to EF)
+				// 4 bytes: 1111 0xxx (F0 to F7)
+				// if no match is found in the byte it'll be printed as unsigned char
+				// if the character is an extended ascii character that is smaller
+				// than 0xC0 it'll be printed as signed character
+				// if you wnat to change the encoding, you should work here
 				else if (textToConvert[count] >= (char)0xC0 && textToConvert[count] <= (char)0xFF)
 				{
 					int byteCount = 1;
