@@ -218,7 +218,7 @@ int main(int argc, char** argv)
 					break;
 
 				// prints the satrt of the assignment
-				fprintf(textFile, "array_%i[%i][%i] = ", arrayCounter, lineCounter, count);
+				fprintf(textFile, "array_%li[%li][%li] = ", arrayCounter, lineCounter, count);
 
 				// if th echaracter is a backslash or a quote, put a backslash before it
 				if (textToConvert[count] == '\\' || textToConvert[count] == '\"')
