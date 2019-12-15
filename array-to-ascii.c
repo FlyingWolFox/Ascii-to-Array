@@ -110,6 +110,38 @@ int main(int argc, char** argv)
 				if (textToConvert[count] == '\\' || textToConvert[count] == '\"')
 					fprintf(textFile, "'\\%c'", textToConvert[count]);
 
+				else if (textToConvert[count] >= (char)0xC0 && textToConvert[count] <= (char)0xFF)
+				{
+					int byteCount = 1;
+
+					if (textToConvert[count + 1] >= (char)0x80 && textToConvert[count + 1] <= (char)0xBF)
+					{
+						if (textToConvert[count] <= (char)0xDF)
+							byteCount = 2;
+
+						else if (textToConvert[count] <= (char)0xEF)
+							byteCount = 3;
+
+						else if (textToConvert[count] <= (char)0xF7)
+							byteCount = 4;
+
+						else
+							byteCount = 0;
+					}
+
+					fprintf(textFile, "'");
+					for (int loopCount = 0; loopCount < byteCount; loopCount++)
+						fprintf(textFile, "%c", textToConvert[count + loopCount]);
+
+					if (byteCount == 0)
+					{
+						unsigned char extendedASCII = textToConvert[count];
+						fprintf(textFile, "%uc", extendedASCII);
+					}
+					fprintf(textFile, "'");
+					count++;
+				}
+
 				// prints the character betwen '
 				else
 					fprintf(textFile, "'%c'", textToConvert[count]);
@@ -177,6 +209,38 @@ int main(int argc, char** argv)
 				// if th echaracter is a backslash or a quote, put a backslash before it
 				if (textToConvert[count] == '\\' || textToConvert[count] == '\"')
 					fprintf(textFile, "'\\%c'", textToConvert[count]);
+
+				else if (textToConvert[count] >= (char)0xC0 && textToConvert[count] <= (char)0xFF)
+				{
+					int byteCount = 1;
+
+					if (textToConvert[count + 1] >= (char)0x80 && textToConvert[count + 1] <= (char)0xBF)
+					{
+						if (textToConvert[count] <= (char)0xDF)
+							byteCount = 2;
+
+						else if (textToConvert[count] <= (char)0xEF)
+							byteCount = 3;
+
+						else if (textToConvert[count] <= (char)0xF7)
+							byteCount = 4;
+
+						else
+							byteCount = 0;
+					}
+
+					fprintf(textFile, "'");
+					for (int loopCount = 0; loopCount < byteCount; loopCount++)
+						fprintf(textFile, "%c", textToConvert[count + loopCount]);
+
+					if (byteCount == 0)
+					{
+						unsigned char extendedASCII = textToConvert[count];
+						fprintf(textFile, "%uc", extendedASCII);
+					}
+					fprintf(textFile, "'");
+					count++;
+				}
 
 				// prints the character betwen '
 				else
